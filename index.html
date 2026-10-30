@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نبض العضلة - مركز الحجامة والاستشفاء العضلي</title>
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A6B5B', // أخضر زيتوني مائي هادئ
+                        secondary: '#D4C5A9', // بيج كريمي
+                        accent: '#8C6D4F', // بني ترابي ذهبي
+                        darkBg: '#1E292B',
+                        lightBg: '#F9F8F6'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #F9F8F6; color: #2D3748; }
+        .smooth-shadow { box-shadow: 0 4px 20px rgba(74, 107, 91, 0.08); }
+        .transition-all-300 { transition: all 0.3s ease; }
+    </style>
+</head>
+<body x-data="appData()" x-init="init()" class="bg-lightBg font-cairo antialiased">
+
+    <!-- SocialBar Ad Script -->
+    <script data-cfasync="false" src="https://bicea.org/14/679d29d7b03bd09e56161b04053c1958"></script>
+
+    <!-- Header / Navbar -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 smooth-shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl font-bold">
+                    <i class="fa-solid fa-hand-holding-medical"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-primary tracking-tight">نبض العضلة</h1>
+                    <p class="text-xs text-gray-500 font-medium">للحجامة والاستشفاء العضلي</p>
+                </div>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
+                <a href="#services" class="hover:text-primary transition">الجلسات</a>
+                <a href="#why-us" class="hover:text-primary transition">لماذا نحن</a>
+                <a href="#instructions" class="hover:text-primary transition">تعليمات جلسة الحجامة</a>
+                <a href="#faq" class="hover:text-primary transition">الأسئلة الشائعة</a>
+                <a href="#booking" class="bg-primary text-white px-5 py-2.5 rounded-full hover:bg-primary/90 transition shadow-md">حجز موعد</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button @click="toggleAdminView()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-bold transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-lock text-primary"></i> <span x-text="isAdminView ? 'موقع الزوار' : 'لوحة التحكم'"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main>
+        <!-- Visitor View -->
+        <div x-show="!isAdminView">
+            
+            <!-- Hero Section -->
+            <section class="relative bg-gradient-to-b from-primary/10 to-lightBg py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="bg-primary/15 text-primary text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-4">مركز معتمد للعلاج الطبيعي والاستشفاء</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-gray-900 mb-6 leading-tight">استعد نشاط جسدك وتخلص من آلامك <br class="hidden sm:inline">مع خبراء الاستشفاء العضلي</h2>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mb-8 font-medium">نقدم أحدث جلسات الحجامة والعلاج العضلي بأعلى معايير النظافة والتعقيم والاحترافية الطبية بإشراف ك/ يوسف صيام.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#booking" class="bg-primary text-white px-8 py-3.5 rounded-xl font-bold hover:bg-primary/90 transition shadow-lg text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-check"></i> احجز موعدك الآن
+                        </a>
+                        <a href="https://wa.me/201143310277" target="_blank" class="bg-[#25D366] text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#20ba59] transition shadow-lg text-lg flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp"></i> تواصل عبر واتساب
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ad Banner Section (300x250 iFrame) -->
+            <section class="py-8 bg-white/50 border-y border-gray-100 my-4">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <p class="text-xs text-gray-400 mb-2 font-semibold">إعلان ممول</p>
+                    <div class="flex justify-center items-center overflow-hidden">
+                        <script>
+                          atOptions = {
+                            'key' : '0caba5ddd696c0dd32608eca8f2d6ba3',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                          };
+                        </script>
+                        <script src="https://bicea.org/22/0caba5ddd696c0dd32608eca8f2d6ba3"></script>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-3">أنواع الجلسات المتاحة</h3>
+                    <p class="text-gray-600 font-medium">اختر الجلسة المناسبة لحالتك واحجز موعدك فوراً</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <template x-for="service in services.filter(s => !s.hidden)" :key="service.id">
+                        <div class="bg-white rounded-2xl overflow-hidden smooth-shadow border border-gray-100 flex flex-col transition hover:-translate-y-1">
+                            <div class="h-48 overflow-hidden bg-gray-100 relative">
+                                <img :src="service.image" :alt="service.name" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-primary font-bold px-3 py-1 rounded-full text-sm shadow" x-text="service.price + ' جنيه'"></span>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h4 class="text-xl font-bold text-gray-900 mb-2" x-text="service.name"></h4>
+                                <p class="text-gray-600 text-sm mb-6 flex-grow" x-text="service.description"></p>
+                                <button @click="selectServiceForBooking(service.name)" class="w-full bg-primary/10 text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-white transition-all duration-300">
+                                    احجز هذه الجلسة
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+
+            <!-- Why Us Section -->
+            <section id="why-us" class="py-16 bg-white border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-3">لماذا "نبض العضلة"؟</h3>
+                        <p class="text-gray-600 font-medium">نلتزم بأعلى معايير الرعاية والاحترافية لضمان راحتك</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-lightBg p-6 rounded-2xl border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                                <i class="fa-solid fa-pump-soap"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">نظافة وتعقيم تام</h4>
+                            <p class="text-sm text-gray-600">تعقيم دوري لكافة الأدوات ومكان الجلسات بأعلى المعايير الصحية.</p>
+                        </div>
+                        <div class="bg-lightBg p-6 rounded-2xl border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                                <i class="fa-solid fa-box-archive"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">أدوات لمرة واحدة</h4>
+                            <p class="text-sm text-gray-600">كاسات وأدوات مخصصة لكل عميل تُستعمل مرة واحدة فقط وتُتخلص منها.</p>
+                        </div>
+                        <div class="bg-lightBg p-6 rounded-2xl border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">خبرة واحترافية</h4>
+                            <p class="text-sm text-gray-600">إشراف وتنفيذ مباشر بواسطة الكابتن يوسف صيام بخبرة متقدمة.</p>
+                        </div>
+                        <div class="bg-lightBg p-6 rounded-2xl border border-gray-100 text-center">
+                            <div class="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">خصوصية تامة</h4>
+                            <p class="text-sm text-gray-600">بيئة علاجية هادئة توفر الراحة والخصوصية الكاملة لكل مراجع.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instructions Section -->
+            <section id="instructions" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-3">تعليمات جلسة الحجامة</h3>
+                    <p class="text-gray-600 font-medium">إرشادات هامة للحصول على أفضل نتيجة استشفائية</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-2xl smooth-shadow border border-gray-100">
+                        <h4 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-exclamation"></i> قبل الجلسة
+                        </h4>
+                        <ul class="space-y-3 text-gray-600 font-medium">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary mt-1"></i> تجنب تناول وجبة ثقيلة قبل الجلسة بساعتين إلى ثلاث ساعات.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary mt-1"></i> يُفضل الاستحمام قبل الحضور للمركز.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary mt-1"></i> إخبار المعالج بأي أدوية مسيلة للدم أو حالات صحية خاصة.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl smooth-shadow border border-gray-100">
+                        <h4 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> بعد الجلسة
+                        </h4>
+                        <ul class="space-y-3 text-gray-600 font-medium">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary mt-1"></i> الإكثار من شرب السوائل والماء الدافئ والعسل.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary mt-1"></i> تجنب بذل مجهود بدني شاق أو التمارين العنيفة لمدة 24 ساعة.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary mt-1"></i> تجنب التعرض للتيارات الهوائية الباردة أو الاستحمام بماء بارد مباشرة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Booking Section -->
+            <section id="booking" class="py-16 bg-primary/5 border-t border-gray-100">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white p-8 sm:p-12 rounded-3xl smooth-shadow border border-gray-100">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-2">حجز موعد جلسة</h3>
+                            <p class="text-gray-600 font-medium">املأ البيانات أدناه لإرسال حجزك فوراً عبر واتساب للمالك</p>
+                        </div>
+                        
+                        <form @submit.prevent="submitBooking" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">الاسم الكامل *</label>
+                                <input type="text" x-model="bookingForm.name" required placeholder="أدخل اسمك الكريم" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">رقم الهاتف (مصري صحيح) *</label>
+                                <input type="tel" x-model="bookingForm.phone" required placeholder="010xxxxxxxx أو 011xxxxxxxx أو 012xxxxxxxx أو 015xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">اختر الجلسة *</label>
+                                <select x-model="bookingForm.service" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none bg-white">
+                                    <option value="">-- اختر نوع الجلسة --</option>
+                                    <template x-for="service in services.filter(s => !s.hidden)" :key="service.id">
+                                        <option :value="service.name" x-text="service.name + ' (' + service.price + ' جنيه)'"></option>
+                                    </template>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">اختر يوم الأسبوع *</label>
+                                <select x-model="bookingForm.selectedDay" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none bg-white">
+                                    <option value="">-- اختر اليوم --</option>
+                                    <template x-for="day in daysOfWeek" :key="day">
+                                        <option :value="day" x-text="day"></option>
+                                    </template>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">المواعيد المتاحة في هذا اليوم *</label>
+                                <select x-model="bookingForm.slotId" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none bg-white">
+                                    <option value="">-- اختر الموعد المناسب --</option>
+                                    <template x-for="slot in availableSlots.filter(s => s.day === bookingForm.selectedDay && !s.booked)" :key="slot.id">
+                                        <option :value="slot.id" x-text="slot.time"></option>
+                                    </template>
+                                </select>
+                                <p class="text-xs text-gray-500 mt-1" x-show="bookingForm.selectedDay && availableSlots.filter(s => s.day === bookingForm.selectedDay && !s.booked).length === 0">عذراً، لا توجد مواعيد متاحة في هذا اليوم حالياً.</p>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">ملاحظات إضافية (اختياري)</label>
+                                <textarea x-model="bookingForm.notes" placeholder="هل تعاني من إصابة معينة أو لديك استفسار؟" rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold py-4 rounded-xl transition shadow-lg text-lg flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i> تأكيد الحجز وإرسال التفاصيل للمالك عبر واتساب
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-3">الأسئلة الشائعة</h3>
+                    <p class="text-gray-600 font-medium">إجابات سريعة على أهم استفساراتكم</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-2xl smooth-shadow border border-gray-100">
+                        <h4 class="font-bold text-lg text-gray-900 mb-2">هل جلسة الحجامة مؤلمة؟</h4>
+                        <p class="text-gray-600 text-sm">لا، التشريط يكون خفيفاً وساطحاً للغاية ولا يسبب ألماً مزعجاً، بل يشعر العميل براحة واسترخاء بعد الجلسة مباشرة.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl smooth-shadow border border-gray-100">
+                        <h4 class="font-bold text-lg text-gray-900 mb-2">متى تظهر نتائج الاستشفاء العضلي؟</h4>
+                        <p class="text-gray-600 text-sm">يشعر العميل بخفة وتحسن في تدفق الدم وتراجع الشد العضلي فور انتهاء الجلسة وبشكل ملحوظ خلال 24 ساعة.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl smooth-shadow border border-gray-100">
+                        <h4 class="font-bold text-lg text-gray-900 mb-2">أين يقع المركز بالتحديد؟</h4>
+                        <p class="text-gray-600 text-sm">يقع المركز في الزقازيق – بردين – شارع السوق – أمام محل أورجا.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials / Customer Reviews Submission Section -->
+            <section class="py-16 bg-white border-t border-gray-100">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-3">آراء وتجارب العملاء</h3>
+                        <p class="text-gray-600 font-medium">شاركنا رأيك بتجربتك في مركز نبض العضلة</p>
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                        <template x-for="rev in testimonials" :key="rev.id">
+                            <div class="bg-lightBg p-6 rounded-2xl border border-gray-100">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="font-bold text-gray-900" x-text="rev.name"></h4>
+                                    <div class="text-amber-500 text-sm">
+                                        <template x-for="i in Number(rev.rating)">
+                                            <i class="fa-solid fa-star"></i>
+                                        </template>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 text-sm" x-text="rev.comment"></p>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Add Review Form -->
+                    <div class="bg-lightBg p-8 rounded-3xl border border-gray-200">
+                        <h4 class="font-bold text-lg text-gray-900 mb-4">أضف تقييمك ورأيك</h4>
+                        <form @submit.prevent="submitReview" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" x-model="newReview.name" required placeholder="اسمك الكريم" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none">
+                                <select x-model="newReview.rating" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none">
+                                    <option value="5">⭐⭐⭐⭐⭐ (ممتاز جداً)</option>
+                                    <option value="4">⭐⭐⭐⭐ (جيد جداً)</option>
+                                    <option value="3">⭐⭐⭐ (مرضي)</option>
+                                </select>
+                            </div>
+                            <textarea x-model="newReview.comment" required placeholder="اكتب تجربتك مع جلسات الحجامة والاستشفاء..." rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none"></textarea>
+                            <button type="submit" class="bg-primary text-white font-bold px-6 py-3 rounded-xl hover:bg-primary/90 transition">إرسال التقييم</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Admin Dashboard View -->
+        <div x-show="isAdminView" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <template x-if="!isAdminLoggedIn">
+                <div class="max-w-md mx-auto bg-white p-8 rounded-3xl smooth-shadow border border-gray-100">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-gray-900">تسجيل دخول المالك</h3>
+                    </div>
+                    <form @submit.prevent="adminLogin" class="space-y-4">
+                        <input type="password" x-model="adminPasswordInput" required placeholder="أدخل كلمة المرور" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none">
+                        <button type="submit" class="w-full bg-primary text-white font-bold py-3.5 rounded-xl hover:bg-primary/90 transition shadow">دخول لوحة التحكم</button>
+                        <p class="text-red-500 text-xs text-center" x-show="adminLoginError">كلمة المرور غير صحيحة!</p>
+                    </form>
+                </div>
+            </template>
+
+            <template x-if="isAdminLoggedIn">
+                <div class="space-y-8">
+                    <!-- Admin Header / Nav -->
+                    <div class="bg-white p-6 rounded-2xl smooth-shadow border border-gray-100 flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-xl font-black text-gray-900">لوحة تحكم الكابتن يوسف صيام</h2>
+                            <p class="text-xs text-gray-500">إدارة الجلسات، المواعيد، والحجوزات بكل سهولة</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button @click="saveAllChanges()" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow flex items-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> حفظ التغييرات
+                            </button>
+                            <button @click="isAdminLoggedIn = false" class="bg-red-50 text-red-600 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-red-100 transition">تسجيل الخروج</button>
+                        </div>
+                    </div>
+
+                    <!-- 1. Appointments Slots Management -->
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl smooth-shadow border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">إدارة المواعيد المتاحة</h3>
+                        <form @submit.prevent="addSlot" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                            <select x-model="newSlot.day" required class="px-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none">
+                                <option value="">اختر اليوم</option>
+                                <template x-for="day in daysOfWeek" :key="day">
+                                    <option :value="day" x-text="day"></option>
+                                </template>
+                            </select>
+                            <input type="text" x-model="newSlot.time" required placeholder="الوقت (مثال: 05:00 م)" class="px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
+                            <button type="submit" class="bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary/90 transition">إضافة موعد جديد</button>
+                        </form>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-right">
+                                <thead>
+                                    <tr class="border-b border-gray-100 text-gray-500 text-sm">
+                                        <th class="pb-3">اليوم</th>
+                                        <th class="pb-3">الوقت</th>
+                                        <th class="pb-3">الحالة</th>
+                                        <th class="pb-3">الإجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-50 text-sm">
+                                    <template x-for="slot in availableSlots" :key="slot.id">
+                                        <tr>
+                                            <td class="py-3 font-bold">
+                                                <select x-model="slot.day" class="px-2 py-1 rounded border border-gray-200 bg-white text-sm font-bold">
+                                                    <template x-for="d in daysOfWeek" :key="d">
+                                                        <option :value="d" x-text="d"></option>
+                                                    </template>
+                                                </select>
+                                            </td>
+                                            <td class="py-3">
+                                                <input type="text" x-model="slot.time" class="px-2 py-1 rounded border border-gray-200 bg-white text-sm w-32">
+                                            </td>
+                                            <td class="py-3">
+                                                <span class="px-2.5 py-1 rounded-full text-xs font-bold" :class="slot.booked ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'" x-text="slot.booked ? 'محجوز' : 'متاح'"></span>
+                                            </td>
+                                            <td class="py-3">
+                                                <button @click="deleteSlot(slot.id)" class="text-red-500 hover:underline">حذف</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 2. Services Management -->
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl smooth-shadow border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">إدارة الجلسات والأسعار (مع إمكانية رفع الصور)</h3>
+                        <form @submit.prevent="addService" class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+                            <input type="text" x-model="newService.name" required placeholder="اسم الجلسة" class="px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
+                            <input type="number" x-model="newService.price" required placeholder="السعر (جنيه)" class="px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
+                            <input type="file" @change="handleImageUpload" accept="image/*" class="px-3 py-2 rounded-xl border border-gray-200 bg-white text-xs file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary">
+                            <button type="submit" class="bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary/90 transition">إضافة جلسة</button>
+                        </form>
+
+                        <div class="space-y-4">
+                            <template x-for="service in services" :key="service.id">
+                                <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-gray-100 bg-lightBg">
+                                    <div class="flex items-center gap-4">
+                                        <img :src="service.image" class="w-16 h-16 rounded-xl object-cover">
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <input type="text" x-model="service.name" class="font-bold text-gray-900 bg-white px-2 py-1 rounded border border-gray-200 text-sm">
+                                                <input type="number" x-model="service.price" class="text-primary font-bold bg-white px-2 py-1 rounded border border-gray-200 text-sm w-24">
+                                                <span class="text-xs text-gray-500">جنيه</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500" x-text="service.description"></p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <button @click="toggleServiceHidden(service.id)" class="text-xs px-3 py-1.5 rounded-lg font-bold" :class="service.hidden ? 'bg-amber-50 text-amber-700' : 'bg-gray-100 text-gray-700'" x-text="service.hidden ? 'مخفي' : 'ظاهر'"></button>
+                                        <button @click="deleteService(service.id)" class="text-red-500 text-xs font-bold hover:underline">حذف</button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- 3. Bookings Management -->
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl smooth-shadow border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">سجل الحجوزات</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-right">
+                                <thead>
+                                    <tr class="border-b border-gray-100 text-gray-500 text-sm">
+                                        <th class="pb-3">الاسم</th>
+                                        <th class="pb-3">الهاتف</th>
+                                        <th class="pb-3">الجلسة</th>
+                                        <th class="pb-3">الموعد</th>
+                                        <th class="pb-3">الحالة</th>
+                                        <th class="pb-3">الإجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-50 text-sm">
+                                    <template x-for="booking in bookings" :key="booking.id">
+                                        <tr>
+                                            <td class="py-3 font-bold" x-text="booking.name"></td>
+                                            <td class="py-3" x-text="booking.phone"></td>
+                                            <td class="py-3" x-text="booking.service"></td>
+                                            <td class="py-3" x-text="booking.day + ' - ' + booking.time"></td>
+                                            <td class="py-3">
+                                                <select x-model="booking.status" class="px-2.5 py-1 rounded-lg text-xs font-bold border border-gray-200 bg-white">
+                                                    <option value="جديد">جديد</option>
+                                                    <option value="مؤكد">مؤكد</option>
+                                                    <option value="تم">تم</option>
+                                                    <option value="ملغي">ملغي</option>
+                                                </select>
+                                            </td>
+                                            <td class="py-3 flex items-center gap-2">
+                                                <a :href="'https://wa.me/20' + booking.phone.replace(/^0/, '') + '?text=مرحباً بك ' + booking.name + '، تم تأكيد حجزك لجلسة ' + booking.service + ' في مركز نبض العضلة.'" target="_blank" class="text-green-600 bg-green-50 px-2 py-1 rounded text-xs font-bold">واتساب</a>
+                                                <button @click="deleteBooking(booking.id)" class="text-red-500 text-xs font-bold hover:underline">حذف</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Save Button Bar -->
+                    <div class="text-center pt-4">
+                        <button @click="saveAllChanges()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl transition inline-flex items-center gap-3">
+                            <i class="fa-solid fa-floppy-disk text-xl"></i> حفظ جميع التغييرات في لوحة التحكم
+                        </button>
+                    </div>
+
+                </div>
+            </template>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darkBg text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-3 text-secondary">نبض العضلة</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">مركز متخصص في الحجامة والاستشفاء العضلي بالزقازيق، لإعادة الحيوية والنشاط لجسدك.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-3 text-secondary">معلومات التواصل</h4>
+                    <p class="text-gray-400 text-sm mb-2"><i class="fa-solid fa-user-tie text-secondary ml-2"></i> الكابتن: يوسف صيام</p>
+                    <p class="text-gray-400 text-sm mb-2"><i class="fa-solid fa-location-dot text-secondary ml-2"></i> الزقازيق – بردين – شارع السوق – أمام محل أورجا</p>
+                    <p class="text-gray-400 text-sm"><i class="fa-solid fa-phone text-secondary ml-2"></i> 01143310277</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-3 text-secondary">روابط سريعة</h4>
+                    <div class="flex gap-4">
+                        <a href="https://wa.me/201143310277" target="_blank" class="w-10 h-10 bg-[#25D366] text-white rounded-full flex items-center justify-center text-lg hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/share/1E4iRgESKk/?mibextid=wwXIfr" target="_blank" class="w-10 h-10 bg-[#1877F2] text-white rounded-full flex items-center justify-center text-lg hover:scale-110 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="tel:01143310277" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center text-lg hover:scale-110 transition"><i class="fa-solid fa-phone"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+                جميع الحقوق محفوظة © نبض العضلة 2026
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/201143310277" target="_blank" class="fixed bottom-6 left-6 z-40 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-xl hover:scale-110 transition-all">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- App Script Logic -->
+    <script>
+        function appData() {
+            return {
+                isAdminView: false,
+                isAdminLoggedIn: false,
+                adminPasswordInput: '',
+                adminLoginError: false,
+
+                daysOfWeek: ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+
+                services: JSON.parse(localStorage.getItem('mp_services')) || [
+                    { id: 1, name: 'جلسة حجامة شاملة', price: 200, description: 'جلسة تنشيط دورة دموية وإخراج الأخلاط الضارة.', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80', hidden: false },
+                    { id: 2, name: 'استشفاء عضلي رياضي', price: 250, description: 'إزالة الشد العضلي العميق وتأهيل الرياضيين.', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80', hidden: false },
+                    { id: 3, name: 'جلسة استرخاء وتدليك', price: 180, description: 'مساج استرخائي لتخفيف التوتر والإجهاد العصبي.', image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80', hidden: false }
+                ],
+
+                availableSlots: JSON.parse(localStorage.getItem('mp_slots')) || [
+                    { id: 1, day: 'السبت', time: '04:00 م', booked: false },
+                    { id: 2, day: 'السبت', time: '06:00 م', booked: false },
+                    { id: 3, day: 'الأحد', time: '05:00 م', booked: false },
+                    { id: 4, day: 'الإثنين', time: '07:00 م', booked: false }
+                ],
+
+                bookings: JSON.parse(localStorage.getItem('mp_bookings')) || [],
+
+                testimonials: JSON.parse(localStorage.getItem('mp_testimonials')) || [
+                    { id: 1, name: 'أحمد محمود', rating: 5, comment: 'مركز ممتاز جداً وتعقيم عالي ونظافة وكابتن يوسف محترف بمعزل عن الروعة.' },
+                    { id: 2, name: 'محمد إبراهيم', rating: 5, comment: 'تجربة جلسة الاستشفاء العضلي كانت فارقة جداً في التخلص من ألام الظهر.' }
+                ],
+
+                bookingForm: {
+                    name: '',
+                    phone: '',
+                    service: '',
+                    selectedDay: '',
+                    slotId: '',
+                    notes: ''
+                },
+
+                newService: { name: '', price: '', description: 'جلسة علاجية متخصصة', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80', hidden: false },
+                newSlot: { day: '', time: '' },
+
+                newReview: { name: '', rating: '5', comment: '' },
+
+                init() {},
+
+                toggleAdminView() {
+                    this.isAdminView = !this.isAdminView;
+                },
+
+                adminLogin() {
+                    if (this.adminPasswordInput === '2026') {
+                        this.isAdminLoggedIn = true;
+                        this.adminLoginError = false;
+                    } else {
+                        this.adminLoginError = true;
+                    }
+                },
+
+                // زر حفظ التغييرات العام لجميع أقسام لوحة التحكم
+                saveAllChanges() {
+                    localStorage.setItem('mp_services', JSON.stringify(this.services));
+                    localStorage.setItem('mp_slots', JSON.stringify(this.availableSlots));
+                    localStorage.setItem('mp_bookings', JSON.stringify(this.bookings));
+                    alert('✅ تم حفظ جميع التغييرات بنجاح! ستظهر التعديلات بشكل دائم عند فتح الموقع.');
+                },
+
+                selectServiceForBooking(serviceName) {
+                    this.bookingForm.service = serviceName;
+                    const el = document.getElementById('booking');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                },
+
+                submitBooking() {
+                    const egyptianPhoneRegex = /^01[0125][0-9]{8}$/;
+                    if (!egyptianPhoneRegex.test(this.bookingForm.phone)) {
+                        alert('برجاء إدخال رقم هاتف مصري صحيح يبدأ بـ 010, 011, 012 أو 015 ويتكون من 11 رقماً.');
+                        return;
+                    }
+
+                    const slot = this.availableSlots.find(s => s.id == this.bookingForm.slotId);
+                    if (!slot || slot.booked) {
+                        alert('عذراً، هذا الموعد غير متاح أو تم حجزه بالفعل.');
+                        return;
+                    }
+
+                    slot.booked = true;
+                    localStorage.setItem('mp_slots', JSON.stringify(this.availableSlots));
+
+                    const newBookingItem = {
+                        id: Date.now(),
+                        name: this.bookingForm.name,
+                        phone: this.bookingForm.phone,
+                        service: this.bookingForm.service,
+                        day: slot.day,
+                        time: slot.time,
+                        status: 'جديد'
+                    };
+                    this.bookings.push(newBookingItem);
+                    localStorage.setItem('mp_bookings', JSON.stringify(this.bookings));
+
+                    const ownerWhatsAppNumber = '201143310277';
+                    const message = `مرحباً كابتن يوسف صيام، يوجد حجز جديد في مركز نبض العضلة:%0a` +
+                                    `- الاسم: ${this.bookingForm.name}%0a` +
+                                    `- الهاتف: ${this.bookingForm.phone}%0a` +
+                                    `- الجلسة: ${this.bookingForm.service}%0a` +
+                                    `- الموعد: يوم ${slot.day} الساعة ${slot.time}%0a` +
+                                    `- ملاحظات: ${this.bookingForm.notes || 'لا توجد'}`;
+
+                    window.open(`https://wa.me/${ownerWhatsAppNumber}?text=${message}`, '_blank');
+
+                    alert('تم حجز الموعد بنجاح، وتوجيهك لإرسال تفاصيل الحجز عبر واتساب للمالك!');
+                    this.bookingForm = { name: '', phone: '', service: '', selectedDay: '', slotId: '', notes: '' };
+                },
+
+                submitReview() {
+                    this.testimonials.push({
+                        id: Date.now(),
+                        name: this.newReview.name,
+                        rating: this.newReview.rating,
+                        comment: this.newReview.comment
+                    });
+                    localStorage.setItem('mp_testimonials', JSON.stringify(this.testimonials));
+                    alert('شكراً لك! تم إضافة تقييمك بنجاح.');
+                    this.newReview = { name: '', rating: '5', comment: '' };
+                },
+
+                addSlot() {
+                    this.availableSlots.push({
+                        id: Date.now(),
+                        day: this.newSlot.day,
+                        time: this.newSlot.time,
+                        booked: false
+                    });
+                    localStorage.setItem('mp_slots', JSON.stringify(this.availableSlots));
+                    this.newSlot.time = '';
+                    alert('تم إضافة الموعد وحفظه بنجاح.');
+                },
+
+                deleteSlot(id) {
+                    this.availableSlots = this.availableSlots.filter(s => s.id !== id);
+                    localStorage.setItem('mp_slots', JSON.stringify(this.availableSlots));
+                },
+
+                handleImageUpload(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.newService.image = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+
+                addService() {
+                    this.services.push({
+                        id: Date.now(),
+                        name: this.newService.name,
+                        price: Number(this.newService.price),
+                        description: this.newService.description,
+                        image: this.newService.image,
+                        hidden: false
+                    });
+                    localStorage.setItem('mp_services', JSON.stringify(this.services));
+                    this.newService.name = '';
+                    this.newService.price = '';
+                    alert('تم إضافة الجلسة وحفظها بنجاح.');
+                },
+
+                toggleServiceHidden(id) {
+                    const s = this.services.find(item => item.id === id);
+                    if (s) {
+                        s.hidden = !s.hidden;
+                        localStorage.setItem('mp_services', JSON.stringify(this.services));
+                    }
+                },
+
+                deleteService(id) {
+                    this.services = this.services.filter(s => s.id !== id);
+                    localStorage.setItem('mp_services', JSON.stringify(this.services));
+                },
+
+                deleteBooking(id) {
+                    const booking = this.bookings.find(b => b.id === id);
+                    if (booking) {
+                        const slot = this.availableSlots.find(s => s.day === booking.day && s.time === booking.time);
+                        if (slot) {
+                            slot.booked = false;
+                            localStorage.setItem('mp_slots', JSON.stringify(this.availableSlots));
+                        }
+                    }
+                    this.bookings = this.bookings.filter(b => b.id !== id);
+                    localStorage.setItem('mp_bookings', JSON.stringify(this.bookings));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
